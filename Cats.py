@@ -8,7 +8,7 @@ def load_image(url):
         response.raise_for_status()
         img_data = BytesIO(response.content)
         img = Image.open(img_data)
-        #img = img.resize((200, 200), Image.LANCZOS)
+        img.thumbnail((600, 500), Image.Resampling.LANCZOS)
         img = ImageTk.PhotoImage(img)
         return img
     except Exception as e:
@@ -24,10 +24,11 @@ def set_image():
 
 window =Tk()
 window.title("cat")
-window.geometry("600x500")
+window.geometry("600x600")
 label = Label()
 label.pack()
 update_button = Button(text="update",command=set_image)
+update_button.pack()
 url='https://cataas.com/cat'
 set_image()
 
