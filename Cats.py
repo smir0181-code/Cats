@@ -16,7 +16,9 @@ def load_image(url):
         print(f"Произошла ошибка: {e}")
         return None
 def open_new_window():
-    img=load_image(url)
+    tag=tag_entru.get()
+    url_tag=f'https://cataas.com/cat/{tag}' if tag else 'https://cataas.com/cat'
+    img=load_image(url_tag)
     if img:
         new_window = Toplevel()
         new_window.title("cat")
@@ -31,6 +33,11 @@ def exit():
 window =Tk()
 window.title("cat")
 window.geometry("600x600")
+tag_entru=Entry()
+tag_entru.pack()
+
+load_button = Button(text="Загрузить по тегу", command=open_new_window)
+load_button.pack()
 
 menu_bar = Menu(window)
 window.config(menu=menu_bar)
@@ -43,7 +50,6 @@ file_menu.add_command(label="Exit", command=exit)
 # update_button = Button(text="update",command=set_image)
 # update_button.pack()
 url='https://cataas.com/cat'
-set_image()
 
 
 window.mainloop()
