@@ -2,6 +2,7 @@ from tkinter import *
 import requests 
 from PIL import Image,ImageTk
 from io import BytesIO
+from tkinter import Toplevel
 def load_image(url):
     try:
         response = requests.get(url)
@@ -14,11 +15,14 @@ def load_image(url):
     except Exception as e:
         print(f"Произошла ошибка: {e}")
         return None
-def set_image():
+def open_new_window():
     img=load_image(url)
     if img:
-    # img=ImageTk.PhotoImage(img)
-        label.config(image=img)
+        new_window = Toplevel()
+        new_window.title("cat")
+        new_window.geometry("600x500")
+        label = Label(new_window, image=img)
+        label.pack()
         label.image=img
 def exit():
     window.destroy()
@@ -27,13 +31,12 @@ def exit():
 window =Tk()
 window.title("cat")
 window.geometry("600x600")
-label = Label()
-label.pack()
+
 menu_bar = Menu(window)
 window.config(menu=menu_bar)
 file_menu = Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="Загрузить фото", command=set_image)
+file_menu.add_command(label="Загрузить фото", command=open_new_window)
 file_menu.add_separator()
 file_menu.add_command(label="Exit", command=exit)
 
