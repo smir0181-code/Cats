@@ -1,8 +1,10 @@
 from tkinter import *
+from tkinter import ttk
 import requests 
 from PIL import Image,ImageTk
 from io import BytesIO
 from tkinter import Toplevel
+AllowedTags=['sleep','jump','fight','black','white','siamese','cute']
 def load_image(url):
     try:
         response = requests.get(url)
@@ -16,7 +18,7 @@ def load_image(url):
         print(f"Произошла ошибка: {e}")
         return None
 def open_new_window():
-    tag=tag_entru.get()
+    tag=tag_combobox.get()
     url_tag=f'https://cataas.com/cat/{tag}' if tag else 'https://cataas.com/cat'
     img=load_image(url_tag)
     if img:
@@ -50,6 +52,10 @@ file_menu.add_command(label="Exit", command=exit)
 # update_button = Button(text="update",command=set_image)
 # update_button.pack()
 url='https://cataas.com/cat'
+tag_label=Label(text='Выбери Тег')
+tag_label.pack()
+tag_combobox=ttk.Combobox(values=AllowedTags)
+tag_combobox.pack()
 
 
 window.mainloop()
